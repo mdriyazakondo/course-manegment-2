@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 const AllCourse = async () => {
   let courses = [];
   try {
-    const res = await fetch(`http://localhost:3000/data/course.json`, {
+    const res = await fetch(`http://localhost:5000/api/courses`, {
       cache: "no-store",
     });
     courses = await res.json();

@@ -1,6 +1,5 @@
 [
   {
-    "_id": 1,
     "title": "React for Beginners",
     "category": "Web Development",
     "instructor": "John Doe",
@@ -12,7 +11,6 @@
     "created_at": "2025-11-23T10:00:00Z"
   },
   {
-    "_id": 2,
     "title": "Advanced JavaScript",
     "category": "Web Development",
     "instructor": "Jane Smith",
@@ -24,7 +22,6 @@
     "created_at": "2025-11-23T10:05:00Z"
   },
   {
-    "_id": 3,
     "title": "Python for Data Science",
     "category": "Data Science",
     "instructor": "Alice Johnson",
@@ -36,7 +33,6 @@
     "created_at": "2025-11-23T10:10:00Z"
   },
   {
-    "_id": 4,
     "title": "Machine Learning A-Z",
     "category": "Data Science",
     "instructor": "Bob Williams",
@@ -48,7 +44,6 @@
     "created_at": "2025-11-23T10:15:00Z"
   },
   {
-    "_id": 5,
     "title": "UI/UX Design Fundamentals",
     "category": "Design",
     "instructor": "Emily Davis",
@@ -60,7 +55,6 @@
     "created_at": "2025-11-23T10:20:00Z"
   },
   {
-    "_id": 6,
     "title": "Fullstack Web Development",
     "category": "Web Development",
     "instructor": "Michael Brown",
@@ -72,7 +66,6 @@
     "created_at": "2025-11-23T10:25:00Z"
   },
   {
-    "_id": 7,
     "title": "Digital Marketing Masterclass",
     "category": "Marketing",
     "instructor": "Sarah Lee",
@@ -84,7 +77,6 @@
     "created_at": "2025-11-23T10:30:00Z"
   },
   {
-    "_id": 8,
     "title": "Photography Basics",
     "category": "Photography",
     "instructor": "Tom Harris",
@@ -96,7 +88,6 @@
     "created_at": "2025-11-23T10:35:00Z"
   },
   {
-    "_id": 9,
     "title": "Graphic Design with Photoshop",
     "category": "Design",
     "instructor": "Anna Scott",
@@ -108,7 +99,6 @@
     "created_at": "2025-11-23T10:40:00Z"
   },
   {
-    "_id": 10,
     "title": "Node.js & Express.js Bootcamp",
     "category": "Web Development",
     "instructor": "Dav_id Wilson",
@@ -120,7 +110,6 @@
     "created_at": "2025-11-23T10:45:00Z"
   },
   {
-    "_id": 11,
     "title": "Introduction to Cybersecurity",
     "category": "IT & Security",
     "instructor": "Olivia Martinez",
@@ -132,7 +121,6 @@
     "created_at": "2025-11-23T10:50:00Z"
   },
   {
-    "_id": 12,
     "title": "AWS Cloud Practitioner",
     "category": "Cloud Computing",
     "instructor": "Chris Thompson",

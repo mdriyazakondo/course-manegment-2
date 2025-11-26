@@ -4,25 +4,56 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const Page = () => {
-  const [singleData, setSingleData] = useState([]);
+  const [singleData, setSingleData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { id } = useParams();
-
+  console.log(id);
   useEffect(() => {
     if (!id) return;
 
-    fetch(`/data/course.json`)
-      .then((res) => res.json())
-      .then((data) => setSingleData(data))
-      .catch((err) => console.error(err));
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`http://localhost:5000/api/courses/${id}`);
+        if (!res.ok) throw new Error("Failed to fetch course details");
+        const data = await res.json();
+        setSingleData(data);
+      } catch (err) {
+        console.error(err);
+        setError(err.message || "Something went wrong");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [id]);
 
-  const singleCourse = singleData.find((course) => course._id == id);
-
-  // 🟢 FIX: If not loaded yet, show loading UI
-  if (!singleCourse) {
+  // Loading state
+  if (loading) {
     return (
       <div className="min-h-[60vh] flex justify-center items-center">
         <p className="text-xl text-gray-500">Loading course details...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-[60vh] flex justify-center items-center">
+        <p className="text-xl text-red-500">{error}</p>
+      </div>
+    );
+  }
+
+  // No data found
+  if (!singleData || Object.keys(singleData).length === 0) {
+    return (
+      <div className="min-h-[60vh] flex justify-center items-center">
+        <p className="text-xl text-gray-500">Course not found</p>
       </div>
     );
   }
@@ -33,8 +64,8 @@ const Page = () => {
         {/* Image */}
         <div className="shrink-0 rounded-xl overflow-hidden shadow-md w-full md:w-1/2">
           <Image
-            src={singleCourse.image}
-            alt={singleCourse.title}
+            src={singleData.image}
+            alt={singleData.title || "Course Image"}
             width={410}
             height={400}
             className="object-cover w-full h-full bg-purple-400"
@@ -44,34 +75,39 @@ const Page = () => {
         {/* Course Details */}
         <div className="w-full md:w-1/2">
           <h1 className="text-2xl md:text-4xl font-extrabold text-purple-700 mb-4">
-            {singleCourse.title}
+            {singleData.title || "Untitled Course"}
           </h1>
 
-          <p className="text-gray-600 mb-6">{singleCourse.description}</p>
+          <p className="text-gray-600 mb-6">
+            {singleData.description || "No description available."}
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
             <p>
               <span className="font-semibold">Instructor:</span>{" "}
-              {singleCourse.instructor}
+              {singleData.instructor || "N/A"}
             </p>
             <p>
               <span className="font-semibold">Category:</span>{" "}
-              {singleCourse.category}
+              {singleData.category || "N/A"}
             </p>
             <p>
               <span className="font-semibold">Duration:</span>{" "}
-              {singleCourse.duration}
+              {singleData.duration || "N/A"}
             </p>
             <p>
-              <span className="font-semibold">Level:</span> {singleCourse.level}
+              <span className="font-semibold">Level:</span>{" "}
+              {singleData.level || "N/A"}
             </p>
             <p>
               <span className="font-semibold">Price:</span>{" "}
-              <span className="text-green-600">${singleCourse.price}</span>
+              <span className="text-green-600">${singleData.price || "0"}</span>
             </p>
             <p>
               <span className="font-semibold">Created At:</span>{" "}
-              {new Date(singleCourse.created_at).toLocaleDateString()}
+              {singleData.created_at
+                ? new Date(singleData.created_at).toLocaleDateString()
+                : "N/A"}
             </p>
           </div>
 
