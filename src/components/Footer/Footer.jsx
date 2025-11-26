@@ -64,9 +64,12 @@ const Footer = () => {
             >
               My Post
             </Link>
-            <a href="#" className="hover:text-gray-100 transition-colors">
+            <Link
+              href="contact"
+              className="hover:text-gray-100 transition-colors"
+            >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Social Links */}

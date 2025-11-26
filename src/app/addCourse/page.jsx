@@ -1,4 +1,5 @@
 "use client";
+import Swal from "sweetalert2";
 
 const AddCourse = () => {
   const handleSubmit = async (e) => {
@@ -26,110 +27,124 @@ const AddCourse = () => {
       image,
       description,
     };
-    console.log(newCourse);
 
-    // try {
-    //   const response = await fetch(
-    //     `${process.env.NEXT_PUBLIC_API_URL}/api/courses`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(newCourse),
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   console.log("Course added:", data);
-    //   e.target.reset();
-    // } catch (error) {
-    //   console.error("Error adding course:", error);
-    // }
+    try {
+      const response = await fetch(`http://localhost:5000/api/courses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCourse),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to add course");
+      }
+
+      const data = await response.json();
+      console.log("Course added:", data);
+      e.target.reset();
+
+      Swal.fire({
+        icon: "success",
+        title: "Course Added!",
+        text: "Your course has been added successfully.",
+        confirmButtonColor: "#6b21a8",
+      });
+    } catch (error) {
+      console.error("Error adding course:", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "Something went wrong while adding the course.",
+        confirmButtonColor: "#6b21a8",
+      });
+    }
   };
 
   return (
-    <div className="mt-24">
-      <h2 className="text-3xl font-bold text-center"> Add Course</h2>
+    <div className="mt-24 bg-gray-50 min-h-screen flex flex-col items-center px-4">
+      <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-8">
+        Add a New Course
+      </h2>
       <form
         onSubmit={handleSubmit}
-        className="max-w-3xl mx-auto p-6 space-y-4 shadow my-4"
+        className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8 space-y-6"
       >
-        <input
-          type="text"
-          // defaultValue={user?.fullName}
-          name="name"
-          required
-          placeholder="Owner Name"
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="text"
-          // defaultValue={user?.primaryEmailAddress?.emailAddress}
-          name="email"
-          required
-          placeholder="Owner Email"
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="text"
-          name="title"
-          placeholder="Course Title"
-          required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="text"
-          name="instructor"
-          placeholder="Instructor"
-          required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="text"
-          name="duration"
-          placeholder="Duration (e.g., 6 weeks)"
-          required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="text"
-          name="level"
-          placeholder="Level (Beginner, Intermediate, Advanced)"
-          required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Price"
-          required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="Owner Name"
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="Owner Email"
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            name="title"
+            placeholder="Course Title"
+            required
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            name="category"
+            placeholder="Category"
+            required
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            name="instructor"
+            placeholder="Instructor"
+            required
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            name="duration"
+            placeholder="Duration (e.g., 6 weeks)"
+            required
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            name="level"
+            placeholder="Level (Beginner, Intermediate, Advanced)"
+            required
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="number"
+            name="price"
+            placeholder="Price ($)"
+            required
+            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
         <input
           type="text"
           name="image"
           placeholder="Image URL"
           required
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400"
+          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
         <textarea
           name="description"
           required
           placeholder="Course Description"
-          className="w-full p-3 border rounded outline-none focus:border-purple-500 border-gray-400 resize-none"
-          rows={3}
+          rows={4}
+          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
         />
-        <button
-          type="submit"
-          className="w-full gradient-btn  p-3 rounded  transition"
-        >
+        <button type="submit" className="w-full gradient-btn">
           Add Course
         </button>
       </form>

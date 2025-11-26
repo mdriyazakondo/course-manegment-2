@@ -66,7 +66,7 @@ const CourseCard = ({ course }) => {
         {/* Button */}
         <Link href={`/allCourse/${course._id}`}>
           <button className="mt-4 w-full py-2 gradient-btn text-white  font-semibold  ">
-            See More
+            See Details
           </button>
         </Link>
       </div>

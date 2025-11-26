@@ -9,7 +9,7 @@ const Testimonial = async () => {
   const testimonials = await res.json();
 
   return (
-    <div className="max-w-[1500px] mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="max-w-[1500px] mx-auto  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
       {testimonials.map((testimonial) => (
         <div
           key={testimonial.id}

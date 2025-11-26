@@ -34,9 +34,22 @@ async function run() {
     });
 
     app.get("/api/courses", async (req, res) => {
+      const { search, sort } = req.query;
+      const query = {};
+
+      if (search) {
+        query.$or = [
+          { title: { $regex: search, $options: "i" } },
+          { description: { $regex: search, $options: "i" } },
+        ];
+      }
+      let sortOption = { created_at: -1 };
+      if (sort === "asc") sortOption = { price: 1 };
+      else if (sort === "desc") sortOption = { price: -1 };
+
       const data = await courseCollection
-        .find()
-        .sort({ created_at: -1 })
+        .find(query)
+        .sort(sortOption)
         .toArray();
       res.send(data);
     });
