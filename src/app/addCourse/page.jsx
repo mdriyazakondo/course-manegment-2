@@ -1,7 +1,14 @@
 "use client";
+import ProtectRoute from "@/components/ProtectRoute";
+import { useClerk, useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const AddCourse = () => {
+  const { user } = useUser();
+  const [loading, setLoading] = useState(true);
+  const { openSignIn } = useClerk();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -63,6 +70,24 @@ const AddCourse = () => {
     }
   };
 
+  useEffect(() => {
+    if (!user) {
+      const t = setTimeout(() => {
+        setLoading(false);
+      }, 500);
+
+      return () => clearTimeout(t);
+    }
+  }, [loading, user]);
+
+  if (!user) {
+    if (loading) {
+      return <h4>Loading</h4>;
+    }
+    openSignIn();
+    return <ProtectRoute />;
+  }
+
   return (
     <div className="mt-24 bg-gray-50 min-h-screen flex flex-col items-center px-4">
       <h2 className="text-4xl font-extrabold text-center text-blue-700 mb-8">
@@ -76,6 +101,7 @@ const AddCourse = () => {
           <input
             type="text"
             name="name"
+            defaultValue={user?.username}
             required
             placeholder="Owner Name"
             className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -83,6 +109,7 @@ const AddCourse = () => {
           <input
             type="email"
             name="email"
+            defaultValue={user?.emailAddresses[0].emailAddress}
             required
             placeholder="Owner Email"
             className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"

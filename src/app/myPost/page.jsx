@@ -5,18 +5,23 @@ import { FaEdit, FaTrash, FaTimes } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import UpdateCourse from "@/components/UpdateCourse/UpdateCourse";
+import { useClerk, useUser } from "@clerk/nextjs";
+import ProtectRoute from "@/components/ProtectRoute";
 
 const MyPost = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [data, setData] = useState([]);
-
+  const { user } = useUser();
+  const [loading, setLoading] = useState(true);
+  const { openSignIn } = useClerk();
+  // console.log(user);
   useEffect(() => {
-    fetch(`http://localhost:5000/api/myPost?email=mdriyazakonda@gmail.com`)
+    fetch(`http://localhost:5000/api/myPost?email=${user?.emailAddresses}`)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error(err));
-  }, []);
+  }, [user?.emailAddresses]);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -50,6 +55,24 @@ const MyPost = () => {
     setIsModalOpen(true);
   };
 
+  useEffect(() => {
+    if (!user) {
+      const t = setTimeout(() => {
+        setLoading(false);
+      }, 500);
+
+      return () => clearTimeout(t);
+    }
+  }, [loading, user]);
+
+  if (!user) {
+    if (loading) {
+      return <h4>Loading</h4>;
+    }
+    openSignIn();
+    return <ProtectRoute />;
+  }
+
   return (
     <div className="mt-24 max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 mb-6 min-h-[56vh]">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-center text-blue-600">
@@ -61,11 +84,15 @@ const MyPost = () => {
           <thead className="bg-linear-to-r from-blue-500 to-indigo-600 text-white">
             <tr>
               <th className="px-4 py-3 text-center text-nowrap">Image</th>
-              <th className="px-4 py-3 text-center text-nowrap">Course Title</th>
+              <th className="px-4 py-3 text-center text-nowrap">
+                Course Title
+              </th>
               <th className="px-4 py-3 text-center text-nowrap">Instructor</th>
               <th className="px-4 py-3 text-center text-nowrap">Category</th>
               <th className="px-4 py-3 text-center text-nowrap">Price</th>
-              <th className="px-4 py-3 text-center text-nowrap">Publish Date</th>
+              <th className="px-4 py-3 text-center text-nowrap">
+                Publish Date
+              </th>
               <th className="px-4 py-3 text-center text-nowrap">Actions</th>
             </tr>
           </thead>
@@ -95,9 +122,15 @@ const MyPost = () => {
                   <td className="px-4 py-2 text-center text-nowrap font-medium">
                     {item.title}
                   </td>
-                  <td className="px-4 py-2 text-center text-nowrap">{item.instructor}</td>
-                  <td className="px-4 py-2 text-center text-nowrap">{item.category}</td>
-                  <td className="px-4 py-2 text-center text-nowrap">${item.price}</td>
+                  <td className="px-4 py-2 text-center text-nowrap">
+                    {item.instructor}
+                  </td>
+                  <td className="px-4 py-2 text-center text-nowrap">
+                    {item.category}
+                  </td>
+                  <td className="px-4 py-2 text-center text-nowrap">
+                    ${item.price}
+                  </td>
                   <td className="px-4 py-2 text-center text-nowrap">
                     {new Date(item.created_at).toLocaleDateString()}
                   </td>
