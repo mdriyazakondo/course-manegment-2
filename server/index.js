@@ -27,7 +27,7 @@ async function run() {
     app.get("/api/latest", async (req, res) => {
       const data = await courseCollection
         .find()
-        .sort({ created_at: +1 })
+        .sort({ created_at: -1 })
         .limit(6)
         .toArray();
       res.send(data);
