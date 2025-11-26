@@ -2,7 +2,7 @@ import CourseCard from "@/components/shared/CourseCard";
 import React from "react";
 
 const LatestCourse = async () => {
-  const res = await fetch(`http://localhost:5000/api/latest`);
+  const res = await fetch(`https://server-pi-mocha.vercel.app/api/latest`);
   const courses = await res.json();
 
   return (

@@ -36,13 +36,16 @@ const AddCourse = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5000/api/courses`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newCourse),
-      });
+      const response = await fetch(
+        `https://server-pi-mocha.vercel.app/api/courses`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newCourse),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to add course");

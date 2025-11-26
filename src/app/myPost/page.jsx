@@ -17,7 +17,9 @@ const MyPost = () => {
   const { openSignIn } = useClerk();
   // console.log(user);
   useEffect(() => {
-    fetch(`http://localhost:5000/api/myPost?email=${user?.emailAddresses}`)
+    fetch(
+      `https://server-pi-mocha.vercel.app/api/myPost?email=${user?.emailAddresses}`
+    )
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error(err));
@@ -34,7 +36,7 @@ const MyPost = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/api/courses/${id}`, {
+        fetch(`https://server-pi-mocha.vercel.app/api/courses/${id}`, {
           method: "DELETE",
         }).then((res) => {
           if (res.ok) {

@@ -19,7 +19,7 @@ const UpdateCourse = ({ course, onCancel, onSave }) => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:5000/api/courses/${course._id}`,
+        `https://server-pi-mocha.vercel.app/api/courses/${course._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

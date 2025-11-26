@@ -16,7 +16,9 @@ const Page = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`http://localhost:5000/api/courses/${id}`);
+        const res = await fetch(
+          `https://server-pi-mocha.vercel.app/api/courses/${id}`
+        );
         if (!res.ok) throw new Error("Failed to fetch course details");
         const data = await res.json();
         setSingleData(data);

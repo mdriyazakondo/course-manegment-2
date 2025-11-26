@@ -18,7 +18,7 @@ const AllCourse = () => {
     const fetchCourses = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/courses?search=${encodeURIComponent(
+          `https://server-pi-mocha.vercel.app/api/courses?search=${encodeURIComponent(
             searchCourse
           )}&sort=${getSortValue(sortPrice)}`,
           { cache: "no-store" }
