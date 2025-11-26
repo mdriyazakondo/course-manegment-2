@@ -3,7 +3,7 @@ import CallAction from "@/components/Home/CTASection/CTASection";
 import FeatureSection from "@/components/Home/Feature/Feature";
 import LatestCourse from "@/components/Home/LatestCourse/LatestCourse";
 import MeetOurTeam from "@/components/Home/MeetOurTeam/MeetOurTeam";
-// import Testimonial from "@/components/Home/Testimonial/Testimonial";
+import Testimonial from "@/components/Home/Testimonial/Testimonial";
 import React from "react";
 
 export default function page() {
@@ -13,7 +13,7 @@ export default function page() {
       <LatestCourse />
       <FeatureSection />
       <MeetOurTeam />
-      {/* <Testimonial /> */}
+      <Testimonial />
       <CallAction />
     </div>
   );
