@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import CourseCard from "@/components/shared/CourseCard";
+import Loading from "@/components/Loading/Loading";
 
 const AllCourse = () => {
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchCourse, setSearchCourse] = useState("");
   const [sortPrice, setSortPrice] = useState("normal");
 
@@ -24,6 +26,7 @@ const AllCourse = () => {
           { cache: "no-store" }
         );
         const data = await res.json();
+        setLoading(false);
         setCourses(data);
       } catch (err) {
         console.error("Failed to fetch courses:", err);
@@ -32,6 +35,10 @@ const AllCourse = () => {
 
     fetchCourses();
   }, [searchCourse, sortPrice]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="max-w-[1500px] mx-5 md:mx-6 2xl:mx-auto py-12 mt-16 md:mt-18">

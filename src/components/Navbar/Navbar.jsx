@@ -49,7 +49,7 @@ export default function Navbar() {
                 href={item.href}
                 className={`transition-all ${
                   pathname === item.href
-                    ? "text-blue-600 font-semibold"
+                    ? "gradient-btn"
                     : "hover:text-blue-600"
                 }`}
               >

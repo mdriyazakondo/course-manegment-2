@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <div className="min-h-[40vh] bg-gray-50 flex flex-col items-center py-16 px-4 mt-12">
-      <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">
+    <div className="min-h-[40vh] max-w-5xl mx-auto  flex flex-col items-center py-16 px-4 mt-12">
+      <h1 className="text-4xl font-bold text-blue-500 mb-6 text-center">
         About Our Course Management System
       </h1>
 
@@ -14,18 +14,18 @@ export default function About() {
         user-friendly interface.
       </p>
 
-      <div className="flex flex-col md:flex-row items-center gap-10">
-        <div className="md:w-1/2">
+      <div className="flex flex-col items-center gap-10">
+        <div className="w-full">
           <Image
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYA7cbN4xiW3431LZvBSLCpVka7A4L7eAGBQ&s" // Replace with your image
             alt="Course Management Illustration"
-            width={500}
+            width={800}
             height={400}
             className="w-full rounded-lg shadow-lg"
           />
         </div>
 
-        <div className="md:w-1/2 space-y-6">
+        <div className=" space-y-6">
           <div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-2">
               Our Mission
@@ -33,7 +33,9 @@ export default function About() {
             <p className="text-gray-600">
               To empower students and educators by providing a reliable,
               accessible, and interactive platform for managing courses
-              efficiently.
+              efficiently. Our mission is to simplify the learning process,
+              promote collaboration, and ensure that every user can achieve
+              their academic and professional goals with ease.
             </p>
           </div>
 
@@ -43,7 +45,10 @@ export default function About() {
             </h2>
             <p className="text-gray-600">
               To be the leading solution in course management, offering
-              innovative tools that foster learning and professional growth.
+              innovative tools that foster learning and professional growth. We
+              envision a future where technology bridges the gap between
+              educators and learners, enabling personalized, efficient, and
+              engaging educational experiences worldwide.
             </p>
           </div>
 

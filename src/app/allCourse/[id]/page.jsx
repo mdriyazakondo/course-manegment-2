@@ -1,14 +1,19 @@
 "use client";
+import { IoArrowBack } from "react-icons/io5";
+
+import Loading from "@/components/Loading/Loading";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Page = () => {
   const [singleData, setSingleData] = useState(null);
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  console.log(id);
+
   useEffect(() => {
     if (!id) return;
 
@@ -35,11 +40,7 @@ const Page = () => {
 
   // Loading state
   if (loading) {
-    return (
-      <div className="min-h-[60vh] flex justify-center items-center">
-        <p className="text-xl text-gray-500">Loading course details...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   // Error state
@@ -61,21 +62,30 @@ const Page = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-4 md:mx-auto mt-24 mb-12 p-6 bg-white shadow-lg rounded-2xl flex items-center justify-center min-h-[54vh]">
-      <div className="flex flex-col md:flex-row items-center gap-10">
+    <div className="max-w-5xl mx-4 md:mx-auto mt-24 mb-12 p-6 bg-white shadow-lg rounded-2xl flex flex-col  min-h-[54vh]">
+      <div className=" mb-4 ">
+        <button
+          onClick={() => router.back()}
+          className="py-2 px-4 gradient-btn flex items-center gap-1"
+        >
+          <IoArrowBack />
+          Go Back
+        </button>
+      </div>
+      <div className="flex flex-col items-center gap-10">
         {/* Image */}
-        <div className="shrink-0 rounded-xl overflow-hidden shadow-md w-full md:w-1/2">
+        <div className="shrink-0 rounded-xl overflow-hidden shadow-md w-full">
           <Image
             src={singleData.image}
             alt={singleData.title || "Course Image"}
             width={410}
-            height={400}
-            className="object-cover w-full h-full bg-purple-400"
+            height={300}
+            className="object-cover w-full h-[500px] "
           />
         </div>
 
         {/* Course Details */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full">
           <h1 className="text-2xl md:text-4xl font-extrabold text-purple-700 mb-4">
             {singleData.title || "Untitled Course"}
           </h1>
@@ -106,7 +116,7 @@ const Page = () => {
               <span className="text-green-600">${singleData.price || "0"}</span>
             </p>
             <p>
-              <span className="font-semibold">Created At:</span>{" "}
+              <span className="font-semibold">Publish Date :</span>{" "}
               {singleData.created_at
                 ? new Date(singleData.created_at).toLocaleDateString()
                 : "N/A"}
